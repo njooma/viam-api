@@ -17,7 +17,7 @@ jobs:
     # if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event }}
+      - run: echo ${{ toJson(github) }}
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3.3.1
         with:
@@ -41,7 +41,7 @@ jobs:
       #   run: git remote rename origin head
 
       - name: Update Pull Request
-        uses: gr2m/create-or-update-pull-request-action@v1.5.1
+        uses: gr2m/create-or-update-pull-request-action@v1
         with:
           author: github_actions
           commit-message: Built new protos from ${{ steps.short_sha.outputs.short_sha }} [skip ci]

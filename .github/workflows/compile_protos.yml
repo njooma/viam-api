@@ -17,20 +17,19 @@ jobs:
     # if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ toJson(github) }}
       - uses: actions/checkout@v3
-      - uses: actions/setup-go@v3.3.1
-        with:
-          go-version: '1.19'
-      - uses: bufbuild/buf-setup-action@v1
-      - uses: arduino/setup-protoc@v1
+      # - uses: actions/setup-go@v3.3.1
+      #   with:
+      #     go-version: '1.19'
+      # - uses: bufbuild/buf-setup-action@v1
+      # - uses: arduino/setup-protoc@v1
 
       - name: Compile protos
         run: echo "NAVEED" >> README.md
 
-      - name: Add SHORT_SHA env property
-        id: short_sha
-        run: echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      # - name: Add SHORT_SHA env property
+      #   id: short_sha
+      #   run: echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       # - name: Add fork as remote
       #   if: ${{ github.event.review.pull_request.head.repo.fork }}
@@ -43,7 +42,6 @@ jobs:
       - name: Update Pull Request
         uses: gr2m/create-or-update-pull-request-action@v1
         with:
-          author: github_actions
           commit-message: Built new protos from ${{ steps.short_sha.outputs.short_sha }} [skip ci]
 
 
